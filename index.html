@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Sai Medical Store - Your Trusted Neighborhood Chemist. Quality medicines, wellness products & lab tests.">
+    <meta name="keywords" content="pharmacy, medicines, wellness, lab tests, health">
+    <title>Sai Medical Store - Quality Medicines & Wellness Products</title>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- ========== HEADER ========== -->
+    <header class="header">
+        <div class="container">
+            <div class="header__content">
+                <!-- Left Section: Logo/Shop Name (works as home button) -->
+                <button class="logo logo--header" id="homeBtn" aria-label="Back to Home">
+                    <h1 class="logo__text">Sai Medical Store</h1>
+                </button>
+
+                <!-- Right Section: Contact, Search, Cart -->
+                <div class="header__right">
+                    <a href="#contact-us" class="header__link">Contact Us</a>
+                    
+                    <!-- Search Bar -->
+                    <div class="search-box">
+                        <input type="text" class="search-box__input" placeholder="Search products..." id="searchInput">
+                        <button class="search-box__btn" aria-label="Search">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                <circle cx="11" cy="11" r="8"></circle>
+                                <path d="m21 21-4.35-4.35"></path>
+                            </svg>
+                        </button>
+                    </div>
+
+                    <!-- Cart Icon -->
+                    <button class="cart-btn" aria-label="Shopping Cart">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <circle cx="9" cy="21" r="1"></circle>
+                            <circle cx="20" cy="21" r="1"></circle>
+                            <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                        </svg>
+                        <span class="cart-btn__badge" id="cartCount">0</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- ========== SHOP BY CATEGORY SECTION ========== -->
+    <section class="shop-by-category" id="shopByCategory">
+        <div class="container">
+            <h2 class="section-title">Shop by Category</h2>
+            <div class="category-grid">
+                <div class="category-card" data-category="sexual-wellness">
+                    <div class="category-card__image">💊</div>
+                    <h3 class="category-card__title">Sexual Wellness</h3>
+                </div>
+                <div class="category-card" data-category="baby-care">
+                    <div class="category-card__image">👶</div>
+                    <h3 class="category-card__title">Baby Care</h3>
+                </div>
+                <div class="category-card" data-category="feminine-hygiene">
+                    <div class="category-card__image">✨</div>
+                    <h3 class="category-card__title">Feminine Hygiene</h3>
+                </div>
+                <div class="category-card" data-category="monsoon-kit">
+                    <div class="category-card__image">🌧️</div>
+                    <h3 class="category-card__title">Monsoon Kit</h3>
+                </div>
+                <div class="category-card" data-category="supplements">
+                    <div class="category-card__image">🧬</div>
+                    <h3 class="category-card__title">Supplements</h3>
+                </div>
+                <div class="category-card" data-category="beauty-care">
+                    <div class="category-card__image">💄</div>
+                    <h3 class="category-card__title">Beauty & Care</h3>
+                </div>
+                <div class="category-card" data-category="otc">
+                    <div class="category-card__image">🏥</div>
+                    <h3 class="category-card__title">Over The Counter</h3>
+                </div>
+                <div class="category-card" data-category="lab-tests">
+                    <div class="category-card__image">🧪</div>
+                    <h3 class="category-card__title">Lab Tests</h3>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== CATEGORY FILTER TABS (Blinkit Style) ========== -->
+    <section class="category-filter">
+        <div class="container">
+            <div class="category-tabs">
+                <button class="category-tab active" data-category="sexual-wellness">
+                    <span class="category-tab__icon">💊</span>
+                    <span class="category-tab__name">Sexual Wellness</span>
+                </button>
+                <button class="category-tab" data-category="baby-care">
+                    <span class="category-tab__icon">👶</span>
+                    <span class="category-tab__name">Baby Care</span>
+                </button>
+                <button class="category-tab" data-category="feminine-hygiene">
+                    <span class="category-tab__icon">✨</span>
+                    <span class="category-tab__name">Feminine Hygiene</span>
+                </button>
+                <button class="category-tab" data-category="monsoon-kit">
+                    <span class="category-tab__icon">🌧️</span>
+                    <span class="category-tab__name">Monsoon Kit</span>
+                </button>
+                <button class="category-tab" data-category="supplements">
+                    <span class="category-tab__icon">🧬</span>
+                    <span class="category-tab__name">Supplements</span>
+                </button>
+                <button class="category-tab" data-category="beauty-care">
+                    <span class="category-tab__icon">💄</span>
+                    <span class="category-tab__name">Beauty & Care</span>
+                </button>
+                <button class="category-tab" data-category="otc">
+                    <span class="category-tab__icon">🏥</span>
+                    <span class="category-tab__name">OTC</span>
+                </button>
+                <button class="category-tab" data-category="lab-tests">
+                    <span class="category-tab__icon">🧪</span>
+                    <span class="category-tab__name">Lab Tests</span>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== PRODUCTS SECTION (Dynamic Content) ========== -->
+    <main class="products-main">
+        <div class="container">
+            <div class="products-header">
+                <h2 class="products-title" id="categoryTitle">Sexual Wellness</h2>
+                <p class="products-subtitle" id="categorySubtitle">Premium products for intimate wellness</p>
+            </div>
+            <div class="products-grid" id="productsContainer"></div>
+        </div>
+    </main>
+
+    <!-- ========== LAB TEST BOOKING SECTION ========== -->
+    <section class="lab-booking" id="lab-tests">
+        <div class="container">
+            <div class="lab-booking__content">
+                <div class="lab-booking__text">
+                    <h2 class="section-title">Book Your Lab Test</h2>
+                    <p class="lab-booking__desc">Get accurate lab results with home sample collection. Convenient, safe, and fast.</p>
+                    <ul class="lab-booking__benefits">
+                        <li>✓ Free home sample collection</li>
+                        <li>✓ Quick & accurate results</li>
+                        <li>✓ Certified labs</li>
+                        <li>✓ Doctor consultation available</li>
+                    </ul>
+                </div>
+
+                <form class="booking-form" id="bookingForm">
+                    <div class="form-group">
+                        <label for="name" class="form-label">Full Name *</label>
+                        <input type="text" id="name" name="name" class="form-input" placeholder="Enter your name" required>
+                        <span class="form-error" id="nameError"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="phone" class="form-label">Phone Number *</label>
+                        <input type="tel" id="phone" name="phone" class="form-input" placeholder="Enter your phone number" required>
+                        <span class="form-error" id="phoneError"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="test" class="form-label">Select Test *</label>
+                        <select id="test" name="test" class="form-input" required>
+                            <option value="">-- Choose a test --</option>
+                            <option value="blood-test">Complete Blood Test (CBC)</option>
+                            <option value="thyroid-test">Thyroid Test (TSH/T3/T4)</option>
+                            <option value="covid-test">COVID-19 Rapid Test</option>
+                            <option value="lipid-test">Lipid Profile</option>
+                            <option value="liver-test">Liver Function Test</option>
+                            <option value="kidney-test">Kidney Function Test</option>
+                        </select>
+                        <span class="form-error" id="testError"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="date" class="form-label">Preferred Date *</label>
+                        <input type="date" id="date" name="date" class="form-input" required>
+                        <span class="form-error" id="dateError"></span>
+                    </div>
+
+                    <button type="submit" class="btn btn--primary btn--full">Book Now</button>
+                    <p class="form-notice">We'll confirm your booking via SMS and call</p>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== FOOTER ========== -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer__grid">
+                <div class="footer__section">
+                    <h4 class="footer__title">About Us</h4>
+                    <p class="footer__text">Sai Medical Store is your trusted neighborhood chemist providing quality medicines, wellness products, and reliable lab testing services.</p>
+                </div>
+
+                <div class="footer__section">
+                    <h4 class="footer__title">Contact</h4>
+                    <ul class="footer__list">
+                        <li><strong>Address:</strong> 123 Medical Lane, Health City, HC 12345</li>
+                        <li><strong>Phone:</strong> +91 9876-543-210</li>
+                        <li><strong>Email:</strong> info@saimedicalstore.com</li>
+                    </ul>
+                </div>
+
+                <div class="footer__section">
+                    <h4 class="footer__title">Working Hours</h4>
+                    <ul class="footer__list">
+                        <li>Mon - Sat: 9:00 AM - 10:00 PM</li>
+                        <li>Sunday: 10:00 AM - 8:00 PM</li>
+                        <li>Holidays: 10:00 AM - 6:00 PM</li>
+                    </ul>
+                </div>
+
+                <div class="footer__section">
+                    <h4 class="footer__title">Legal</h4>
+                    <ul class="footer__list">
+                        <li><a href="#" class="footer__link">Privacy Policy</a></li>
+                        <li><a href="#" class="footer__link">Terms & Conditions</a></li>
+                        <li><a href="#" class="footer__link">Return Policy</a></li>
+                        <li><a href="#about-us" class="footer__link">About Us</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer__disclaimer">
+                <p><strong>⚕️ Medical Disclaimer:</strong> This website is for informational purposes only. Always consult with a healthcare professional before using any medicine or product. Sai Medical Store is not liable for any medical advice or decisions made based on this website.</p>
+            </div>
+
+            <div class="footer__bottom">
+                <p>&copy; 2026 Sai Medical Store. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Success Modal (for booking confirmation) -->
+    <div class="modal" id="successModal">
+        <div class="modal__content">
+            <div class="modal__header">
+                <h3>Booking Confirmed!</h3>
+                <button class="modal__close" id="closeModal">&times;</button>
+            </div>
+            <div class="modal__body">
+                <p>Your lab test booking has been confirmed. You will receive a confirmation SMS shortly.</p>
+                <p><strong>Booking Details:</strong></p>
+                <p id="bookingDetails"></p>
+            </div>
+            <div class="modal__footer">
+                <button class="btn btn--primary" id="modalCloseBtn">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script src="js/script.js"></script>
+</body>
+</html>
