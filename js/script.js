@@ -21,8 +21,8 @@ const products = {
         { id: 10, name: 'Shilajit Capsules', desc: 'pure, organic, 30 caps', price: 599, emoji: '⚫' },
     ],
     'beauty-care': [
-        { id: 11, name: 'Face Wash', desc: 'gentle exfoliating, 100ml', price: 179, emoji: '🧼' },
-        { id: 12, name: 'Moisturizer', desc: 'nourishing, SPF 30, 50ml', price: 349, emoji: '🧴' },
+        { id: 11, name: 'Knee Support', desc: 'adjustable, relieves pain', price: 399, emoji: '🦵' },
+        { id: 12, name: 'Lumbar Belt', desc: 'back support, one size', price: 549, emoji: '🦴' },
     ],
     'otc': [
         { id: 13, name: 'Crocin Tablets', desc: 'fever & pain relief, 10 tabs', price: 29, emoji: '💊' },
@@ -41,7 +41,7 @@ const categoryMetadata = {
     'feminine-hygiene': { title: 'Feminine Hygiene', subtitle: 'Comfort & reliability every day' },
     'monsoon-kit': { title: 'Monsoon Kit', subtitle: 'Stay healthy during rainy season' },
     'supplements': { title: 'Supplements', subtitle: 'Boost your immunity & wellness' },
-    'beauty-care': { title: 'Beauty & Personal Care', subtitle: 'Natural glow & skin care' },
+    'beauty-care': { title: 'Orthopedic Care', subtitle: 'Support & relief for joints and spine' },
     'otc': { title: 'Over The Counter', subtitle: 'Common medicines & pain relief' },
     'lab-tests': { title: 'Lab Tests', subtitle: 'Book home sample collection' },
 };
@@ -74,6 +74,8 @@ let currentCategory = 'sexual-wellness';
 // ========== INITIALIZATION ==========
 // Initialize when script runs (DOM is already loaded since script is at end of HTML)
 loadCartFromStorage();
+// debouncedSearch must be defined before initializeEventListeners is called
+const debouncedSearch = debounce(handleSearch, 300);
 initializeEventListeners();
 
 // ========== EVENT LISTENERS ==========
@@ -106,11 +108,19 @@ function initializeEventListeners() {
     // Search Functionality
     if (searchInput) {
         searchInput.addEventListener('input', debouncedSearch);
+        // Wire up the search button click
+        const searchBtn = document.querySelector('.search-box__btn');
+        if (searchBtn) {
+            searchBtn.addEventListener('click', () => handleSearch({ target: searchInput }));
+        }
     }
 }
 
 // ========== HOME BUTTON HANDLER ==========
 function handleHomeClick() {
+    // Clear search input
+    if (searchInput) searchInput.value = '';
+
     // Show shop by category section
     shopByCategorySection.style.display = 'block';
     
@@ -131,6 +141,9 @@ function handleHomeClick() {
 function handleCategoryCardClick(card) {
     const categoryId = card.getAttribute('data-category');
     
+    // Clear any active search
+    if (searchInput) searchInput.value = '';
+
     // Update current category
     currentCategory = categoryId;
     
@@ -170,7 +183,10 @@ function closeNav() {
 // ========== CATEGORY TAB HANDLER (Blinkit Style) ==========
 function handleCategoryChange(tabElement) {
     const categoryId = tabElement.getAttribute('data-category');
-    
+
+    // Clear any active search
+    if (searchInput) searchInput.value = '';
+
     // Update active tab
     categoryTabs.forEach(tab => tab.classList.remove('active'));
     tabElement.classList.add('active');
@@ -178,6 +194,9 @@ function handleCategoryChange(tabElement) {
     // Scroll active tab into view (horizontal scroll)
     tabElement.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
     
+    // Ensure category filter is visible
+    categoryFilter.classList.add('active');
+
     // Update current category
     currentCategory = categoryId;
     
@@ -275,28 +294,43 @@ function showCartNotification() {
 // ========== SEARCH FUNCTIONALITY ==========
 function handleSearch(e) {
     const searchTerm = e.target.value.toLowerCase().trim();
-    
+
     if (!searchTerm) {
-        // Show all products in current category
-        renderProductsByCategory(currentCategory);
+        // Restore previous category view or go back to home
+        if (productsMain.classList.contains('active')) {
+            renderProductsByCategory(currentCategory);
+        }
         return;
     }
 
-    // Filter products in current category
-    const categoryProducts = products[currentCategory] || [];
-    const filteredProducts = categoryProducts.filter(product => {
-        const name = product.name.toLowerCase();
-        const desc = product.desc.toLowerCase();
-        return name.includes(searchTerm) || desc.includes(searchTerm);
+    // Search across ALL categories
+    const allMatches = [];
+    Object.entries(products).forEach(([categoryId, categoryProducts]) => {
+        categoryProducts.forEach(product => {
+            if (
+                product.name.toLowerCase().includes(searchTerm) ||
+                product.desc.toLowerCase().includes(searchTerm)
+            ) {
+                allMatches.push({ product, categoryId });
+            }
+        });
     });
 
-    // Display filtered products
-    if (filteredProducts.length === 0) {
+    // Ensure the products section is visible (user may be on home page)
+    shopByCategorySection.style.display = 'none';
+    categoryFilter.classList.remove('active'); // hide category tabs during search
+    productsMain.classList.add('active');
+
+    // Update heading
+    categoryTitle.textContent = `Search Results for "${e.target.value.trim()}"`;
+    categorySubtitle.textContent = `${allMatches.length} product${allMatches.length !== 1 ? 's' : ''} found across all categories`;
+
+    if (allMatches.length === 0) {
         productsContainer.innerHTML = '<p style="grid-column: 1/-1; text-align: center; color: var(--color-text-light);">No products found matching your search.</p>';
         return;
     }
 
-    productsContainer.innerHTML = filteredProducts.map(product => createProductCard(product, currentCategory)).join('');
+    productsContainer.innerHTML = allMatches.map(({ product, categoryId }) => createProductCard(product, categoryId)).join('');
 
     // Add event listeners to cart buttons
     productsContainer.querySelectorAll('.product-card__btn').forEach(btn => {
@@ -467,8 +501,7 @@ function debounce(func, wait) {
     };
 }
 
-// Create debounced search
-const debouncedSearch = debounce(handleSearch, 300);
+// NOTE: debouncedSearch const is declared near the top, before initializeEventListeners(), to avoid TDZ errors.
 
 // ========== ACCESSIBILITY IMPROVEMENTS ==========
 // Add focus styles and keyboard navigation
